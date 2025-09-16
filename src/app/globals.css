@@ -111,3 +111,11 @@ nav {
     color: white;
   }
 }
+
+.input-time {
+  background-color: red;
+
+  & input {
+    background-color: white;
+  }
+}

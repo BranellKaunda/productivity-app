@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
-import ReactDOM from "react-dom";
+import Timer from "./Timer/page";
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
@@ -12,7 +12,6 @@ export default function Home() {
   const [playerPick, setPlayerPick] = useState<PlayerDetails[]>([]); //player selected after searching
   const [isAdded, setIsAdded] = useState(false);
   const [playerImage, setPlayerImage] = useState("/images/player.png");
-  const [fetchImg, setFetchImg] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -60,7 +59,6 @@ export default function Home() {
   player = [...data];
 
   const fecthImages = async (param: PlayerDetails) => {
-    setFetchImg(true);
     //using selected player id to fetch player images from API
     const options = {
       method: "GET",
@@ -77,8 +75,6 @@ export default function Home() {
       //response saved in variable "image". updated player image state
       const image = response.data.response.url;
       setPlayerImage(image);
-
-      //ReactDOM.preload(image, { as: "image" });
     } catch (error) {
       console.error(error);
     }
@@ -175,18 +171,10 @@ export default function Home() {
 
         <div>
           {isAdded &&
-            playerPick.map((player) => (
-              <p key={player.id}>
-                {player.name} id:{player.id}
-              </p>
-            ))}
+            playerPick.map((player) => <p key={player.id}>{player.name}</p>)}
         </div>
 
-        <div className="timer">
-          <h1>00:00</h1>
-        </div>
-
-        <button>Start</button>
+        <Timer />
       </div>
     </>
   );
