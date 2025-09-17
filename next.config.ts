@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "images.fotmob.com",
-        pathname: "/**",
+        pathname: "/image_resources/playerimages/**",
       },
     ],
   },

@@ -24,6 +24,7 @@ export default function Home() {
 
   //type is going to be an array of playerDetails type
   let player: PlayerDetails[] = [];
+  let squad: PlayerDetails[] = [];
 
   useEffect(() => {
     const options = {
@@ -78,6 +79,14 @@ export default function Home() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  //function thats adds a player after time is up
+  const addToSquad = () => {
+    console.log("playerAdded");
+    //console.log(playerPick);
+    squad = [...playerPick];
+    console.log(squad);
   };
 
   const addPlayer = (value: PlayerDetails): void => {
@@ -164,7 +173,6 @@ export default function Home() {
             width={200}
             height={200}
             priority
-            quality={100}
             style={{ objectFit: "cover", borderRadius: "4%" }}
           />
         </div>
@@ -174,7 +182,7 @@ export default function Home() {
             playerPick.map((player) => <p key={player.id}>{player.name}</p>)}
         </div>
 
-        <Timer />
+        <Timer addToSquad={addToSquad} />
       </div>
     </>
   );
