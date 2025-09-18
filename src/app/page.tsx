@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
 import Timer from "./Timer/page";
+import Team from "./Team/page";
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
@@ -12,6 +13,7 @@ export default function Home() {
   const [playerPick, setPlayerPick] = useState<PlayerDetails[]>([]); //player selected after searching
   const [isAdded, setIsAdded] = useState(false);
   const [playerImage, setPlayerImage] = useState("/images/player.png");
+  const [squad, setSquad] = useState<PlayerDetails[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -24,7 +26,6 @@ export default function Home() {
 
   //type is going to be an array of playerDetails type
   let player: PlayerDetails[] = [];
-  let squad: PlayerDetails[] = [];
 
   useEffect(() => {
     const options = {
@@ -81,12 +82,10 @@ export default function Home() {
     }
   };
 
-  //function thats adds a player after time is up
+  //adds player you picked to squad after time is up
   const addToSquad = () => {
     console.log("playerAdded");
-    //console.log(playerPick);
-    squad = [...playerPick];
-    console.log(squad);
+    setSquad(playerPick);
   };
 
   const addPlayer = (value: PlayerDetails): void => {
@@ -94,7 +93,10 @@ export default function Home() {
     setIsAdded(true);
 
     if (value) {
-      setPlayerPick((prev) => prev.concat(value));
+      setPlayerPick((prev) =>
+        prev.includes(value) ? prev : prev.concat(value)
+      ); //checks if the player was already picked. if prev values includes that player then return or keep that prev player
+      //else add the new player to the state
       fecthImages(value);
     }
   };
@@ -184,6 +186,8 @@ export default function Home() {
 
         <Timer addToSquad={addToSquad} />
       </div>
+
+      <Team squad={squad} />
     </>
   );
 }
