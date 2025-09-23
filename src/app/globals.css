@@ -121,38 +121,111 @@ nav {
 }
 
 .team-container {
+  position: relative;
+  max-width: 100%;
+  height: auto;
   display: grid;
-  gap: 1fr;
+  gap: 2fr;
   overflow: hidden;
+  background-color: green;
 }
 
-.line-up .gk {
-  margin: auto;
-  text-align: center;
+.team-container::after {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 20%;
+  top: 0;
+  left: 0;
+  transform: translateX(50%);
+  background-color: transparent;
+  border: 1px solid white;
+}
+
+.team-container::before {
+  content: "";
+  position: absolute;
+  width: 25%;
+  height: 8%;
+  top: 0;
+  left: 0;
+  transform: translateX(150%);
+  background-color: transparent;
+  border: 1px solid white;
+}
+
+.team-container .box-circle {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: transparent;
+  border-bottom: 1px solid white;
+  transform: translate(300%, 160%);
+}
+
+.team-container .center-circle {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  background-color: transparent;
+  border-top: 1px solid white;
+  bottom: 0;
+  left: 0;
+  transform: translate(125%, 50%);
+}
+
+.team-container .squad-list {
   background-color: red;
-  padding: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 1fr;
 }
 
-.line-up .defenders {
+.team-container .line-up {
+  font-size: smaller;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border: 1px solid black;
-  padding: 34px;
-  background-color: blue;
+  gap: 1fr;
+  min-height: 500px;
+  border: 1px solid white;
 }
 
-.line-up .mid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  background-color: blue;
-  border: 1px solid black;
-  padding: 34px;
+.line-up li {
+  margin: auto;
+  padding: 12px;
+  white-space: nowrap;
 }
 
-.line-up .forward {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  background-color: blue;
-  border: 1px solid black;
-  padding: 34px;
+.line-up li:nth-child(1) {
+  grid-column: span 4;
+  margin: auto;
+  transform: translateY(50%);
+  z-index: 1;
+}
+
+.line-up li:nth-child(2),
+li:nth-child(5) {
+  grid-row: span 2;
+  transform: translateY(100%);
+}
+
+.line-up li:nth-child(6),
+li:nth-child(7),
+li:nth-child(8),
+li:nth-child(9) {
+  grid-row: span 2;
+  transform: translateY(50%);
+}
+
+.line-up li:nth-child(8),
+li:nth-child(9) {
+  margin: auto;
+}
+
+.line-up li:nth-child(10),
+li:nth-child(11) {
+  grid-row: start 5;
+  grid-column: span 2;
 }
