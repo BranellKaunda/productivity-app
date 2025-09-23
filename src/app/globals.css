@@ -119,3 +119,40 @@ nav {
     background-color: white;
   }
 }
+
+.team-container {
+  display: grid;
+  gap: 1fr;
+  overflow: hidden;
+}
+
+.line-up .gk {
+  margin: auto;
+  text-align: center;
+  background-color: red;
+  padding: 34px;
+}
+
+.line-up .defenders {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid black;
+  padding: 34px;
+  background-color: blue;
+}
+
+.line-up .mid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background-color: blue;
+  border: 1px solid black;
+  padding: 34px;
+}
+
+.line-up .forward {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background-color: blue;
+  border: 1px solid black;
+  padding: 34px;
+}
