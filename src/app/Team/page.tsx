@@ -68,7 +68,7 @@ const Team = ({ squad }: { squad: PlayerDetails[] }) => {
       </div>
 
       <div className="squad-list">
-        <h1>Squad List</h1>
+        <h1>SQUAD LIST</h1>
         <ul>
           {squad.map((player) => (
             <li

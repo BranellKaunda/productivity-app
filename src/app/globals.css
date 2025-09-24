@@ -1,12 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap");
 @import "tailwindcss";
 
 body {
   background-color: #fbf3d5;
-  font-family: "Noto Sans", sans-serif;
+  font-family: "DynaPuff", system-ui;
   font-optical-sizing: auto;
   font-weight: normal;
-  font-style: normal;
+  font-style: italic;
   font-variation-settings: "wdth" 100;
 }
 
@@ -15,6 +15,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 12px;
+  margin: 4px auto;
 
   & .points {
     display: flex;
@@ -22,8 +23,8 @@ nav {
     align-items: center;
   }
 
-  & .points p {
-    font-size: smaller;
+  & .points h1 {
+    font-size: larger;
   }
 }
 
@@ -31,15 +32,16 @@ nav {
   display: flex;
   align-items: center;
   position: relative;
-  background-color: red;
-  max-width: 80%;
+  max-width: 75%;
+  margin: 20px auto;
 
   & input {
     border-radius: 12px;
-    padding: 4px;
     background-color: white;
     caret-color: grey;
-    padding-left: 32px;
+    padding: 10px 32px;
+    margin: 0 auto;
+    text-decoration-line: none;
   }
 
   & input:focus {
@@ -55,7 +57,7 @@ nav {
   & .search-img {
     position: absolute;
     left: 0;
-    padding-left: 10px;
+    transform: translateX(45%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -63,15 +65,24 @@ nav {
 
   & .search-results {
     position: absolute;
-    background-color: blue;
+    background-color: transparent;
+    padding-right: 50%;
+    padding-left: 4%;
+    padding-top: 1%;
+    padding-bottom: 1%;
     left: 0;
     bottom: 0;
     transform: translate(0, 100%);
   }
 
   & .search-results p {
-    border: 1px solid grey;
+    white-space: nowrap;
     padding: 2px 4px;
+    font-size: smaller;
+  }
+
+  & .search-results p:hover {
+    color: white;
   }
 }
 
@@ -81,14 +92,25 @@ nav {
   flex-direction: column;
   gap: 1fr;
   padding: 10px;
-  margin: auto;
+  margin: 80px auto;
   max-width: 80%;
   min-height: 500px;
 
   & .player-img {
     margin: auto;
-    width: auto;
-    height: auto;
+    width: 200px;
+    height: 200px;
+  }
+
+  & .locked-player {
+    border-radius: 12px;
+    background-color: black;
+    opacity: 70%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
   }
 
   & h1 {
@@ -113,10 +135,15 @@ nav {
 }
 
 .input-time {
-  background-color: red;
+  max-width: 50%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
 
   & input {
     background-color: white;
+    padding: 10px;
+    border-radius: 12px;
   }
 }
 
@@ -185,6 +212,20 @@ nav {
   gap: 1fr;
 }
 
+.squad-list h1 {
+  text-align: center;
+  color: red;
+}
+
+.squad-list ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0rem;
+  font-size: smaller;
+  text-align: left;
+  margin-top: 10px;
+}
+
 .team-container .line-up {
   font-size: smaller;
   display: grid;
@@ -198,6 +239,10 @@ nav {
   margin: auto;
   padding: 12px;
   white-space: nowrap;
+}
+
+.line-up li:hover {
+  color: white;
 }
 
 .line-up li:nth-child(1) {

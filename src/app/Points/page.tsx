@@ -13,13 +13,13 @@ const Points = ({ points }: Points) => {
           <Image
             src="/images/points.png"
             alt="points image"
-            width={22}
-            height={22}
+            width={30}
+            height={30}
             style={{ objectFit: "cover" }}
           />
         </div>
 
-        <p>{points}</p>
+        <h1>{points}</h1>
       </div>
     </>
   );

@@ -16,6 +16,7 @@ export default function Home() {
   const [playerImage, setPlayerImage] = useState("/images/player.png");
   const [squad, setSquad] = useState<PlayerDetails[]>([]);
   const [points, setPoints] = useState<number>(0);
+  //const [isPlayerLocked, setIsPlayerLocked] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -86,12 +87,14 @@ export default function Home() {
 
   //adds player you picked to squad after time is up
   const addToSquad = () => {
-    console.log("playerAdded");
+    //setPlayerImage("/images/player.png");
     setSquad(playerPick);
-    setPoints((prev) => prev + 100);
+    setIsAdded(false); //toggle locked player style
+    setPoints((prev) => prev + 100); //adds 100 points every time you unlock player
   };
 
   const addPlayer = (value: PlayerDetails): void => {
+    setIsSearched(false);
     //add player to playerPick state variable
     setIsAdded(true);
 
@@ -124,6 +127,7 @@ export default function Home() {
       <div className="search-bar">
         <input
           type="text"
+          spellCheck="false"
           placeholder="Search player"
           onChange={handleChange}
         />
@@ -145,34 +149,49 @@ export default function Home() {
             player.map(
               (value, i) =>
                 i < 3 && (
-                  <div
+                  <p
                     key={value.id}
                     onClick={() => {
                       addPlayer(value);
                     }}
                   >
                     {value.name}
-                  </div>
+                  </p>
                 )
             )}
         </div>
       </div>
 
       <div className="container">
-        <div className="player-img">
+        <div className="player-img" style={{ position: "relative" }}>
           <Image
             src={playerImage}
             alt="menu logo"
-            width={200}
-            height={200}
+            fill
+            sizes="100%"
             priority
             style={{ objectFit: "cover", borderRadius: "4%" }}
           />
-        </div>
 
-        <div>
-          {isAdded &&
-            playerPick.map((player) => <p key={player.id}>{player.name}</p>)}
+          <div
+            className="locked-player"
+            style={isAdded ? { display: "block" } : { display: "none" }}
+          >
+            <Image
+              src="/images/lock.png"
+              alt="menu logo"
+              height={40}
+              width={40}
+              sizes="100%"
+              priority
+              style={{
+                objectFit: "cover",
+                borderRadius: "4%",
+                margin: "auto",
+                transform: "translateY(200%)",
+              }}
+            />
+          </div>
         </div>
 
         <Timer addToSquad={addToSquad} />
