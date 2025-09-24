@@ -5,6 +5,7 @@ import axios from "axios";
 import React from "react";
 import Timer from "./Timer/page";
 import Team from "./Team/page";
+import Points from "./Points/page";
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
@@ -14,6 +15,7 @@ export default function Home() {
   const [isAdded, setIsAdded] = useState(false);
   const [playerImage, setPlayerImage] = useState("/images/player.png");
   const [squad, setSquad] = useState<PlayerDetails[]>([]);
+  const [points, setPoints] = useState<number>(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -86,6 +88,7 @@ export default function Home() {
   const addToSquad = () => {
     console.log("playerAdded");
     setSquad(playerPick);
+    setPoints((prev) => prev + 100);
   };
 
   const addPlayer = (value: PlayerDetails): void => {
@@ -115,19 +118,7 @@ export default function Home() {
           />
         </button>
 
-        <div className="points">
-          <div className="points-logo">
-            <Image
-              src="/images/points.png"
-              alt="points image"
-              width={22}
-              height={22}
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-
-          <p>1236</p>
-        </div>
+        <Points points={points} />
       </nav>
 
       <div className="search-bar">

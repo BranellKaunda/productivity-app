@@ -156,24 +156,26 @@ nav {
 
 .team-container .box-circle {
   position: absolute;
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
+  width: 20%;
+  height: 20%;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
   background-color: transparent;
   border-bottom: 1px solid white;
-  transform: translate(300%, 160%);
+  transform: translate(200%, 45%);
 }
 
 .team-container .center-circle {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 30%;
+  height: 30%;
   border-radius: 100%;
   background-color: transparent;
   border-top: 1px solid white;
   bottom: 0;
   left: 0;
-  transform: translate(125%, 50%);
+  transform: translate(125%, 60%);
 }
 
 .team-container .squad-list {
