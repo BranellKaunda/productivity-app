@@ -11,12 +11,12 @@ export default function Home() {
   const [inputValue, setInputValue] = useState("");
   const [data, setData] = useState([]);
   const [isSearched, setIsSearched] = useState(false);
-  const [playerPick, setPlayerPick] = useState<PlayerDetails[]>([]); //player selected after searching
+  const [playerPick, setPlayerPick] = useState<string[]>([]); //player selected after searching
   const [isAdded, setIsAdded] = useState(false);
   const [playerImage, setPlayerImage] = useState("/images/player.png");
-  const [squad, setSquad] = useState<PlayerDetails[]>([]);
+  const [squad, setSquad] = useState<string[]>([]);
   const [points, setPoints] = useState<number>(0);
-  //const [isPlayerLocked, setIsPlayerLocked] = useState(false);
+  const [alreadyHavePlayer, setAlreadyHavePlayer] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -52,7 +52,7 @@ export default function Home() {
       } catch (error) {
         console.error(error);
       }
-    }, 2000);
+    }, 800);
 
     return () => clearTimeout(debounceFetch);
   }, [inputValue]);
@@ -63,12 +63,12 @@ export default function Home() {
 
   player = [...data];
 
-  const fecthImages = async (param: PlayerDetails) => {
+  const fecthImages = async (param: number) => {
     //using selected player id to fetch player images from API
     const options = {
       method: "GET",
       url: "https://free-api-live-football-data.p.rapidapi.com/football-get-player-logo",
-      params: { playerid: `${param.id}` },
+      params: { playerid: `${param}` },
       headers: {
         "x-rapidapi-key": "4e111a6802mshc49aeb0b7139532p1c2a8bjsn3cd88b0a1a67",
         "x-rapidapi-host": "free-api-live-football-data.p.rapidapi.com",
@@ -85,44 +85,39 @@ export default function Home() {
     }
   };
 
+  const addPlayer = (name: string, id: number): void => {
+    setIsSearched(false);
+    //add player to playerPick state variable
+
+    setIsAdded(true);
+
+    setPlayerPick((prev) => {
+      if (!prev.includes(name)) {
+        setAlreadyHavePlayer(false);
+        console.log("new");
+        fecthImages(id); // Only fetch if it's a new pick
+        return [...prev, name];
+      }
+      setIsAdded(false);
+      setAlreadyHavePlayer(true); //toggles already have player message
+      fecthImages(id);
+      console.log("old");
+      return prev;
+    });
+  };
+
   //adds player you picked to squad after time is up
   const addToSquad = () => {
     //setPlayerImage("/images/player.png");
     setSquad(playerPick);
+    //setSquad((prev) => prev.includes(playerPick) ? prev : prev.concat(playerPick))
     setIsAdded(false); //toggle locked player style
     setPoints((prev) => prev + 100); //adds 100 points every time you unlock player
   };
 
-  const addPlayer = (value: PlayerDetails): void => {
-    setIsSearched(false);
-    //add player to playerPick state variable
-    setIsAdded(true);
-
-    if (value) {
-      setPlayerPick((prev) =>
-        prev.includes(value) ? prev : prev.concat(value)
-      ); //checks if the player was already picked. if prev values includes that player then return or keep that prev player
-      //else add the new player to the state
-      fecthImages(value);
-    }
-  };
-
   return (
     <>
-      <nav>
-        <button className="menu-logo">
-          <Image
-            src="/images/menu.png"
-            alt="menu logo"
-            width={32}
-            height={32}
-            priority
-            style={{ objectFit: "cover" }}
-          />
-        </button>
-
-        <Points points={points} />
-      </nav>
+      <Points points={points} />
 
       <div className="search-bar">
         <input
@@ -152,7 +147,7 @@ export default function Home() {
                   <p
                     key={value.id}
                     onClick={() => {
-                      addPlayer(value);
+                      addPlayer(value.name, value.id);
                     }}
                   >
                     {value.name}
@@ -163,7 +158,12 @@ export default function Home() {
       </div>
 
       <div className="container">
-        <div className="player-img" style={{ position: "relative" }}>
+        <div
+          className="player-img"
+          style={{
+            position: "relative",
+          }}
+        >
           <Image
             src={playerImage}
             alt="menu logo"
@@ -193,6 +193,16 @@ export default function Home() {
             />
           </div>
         </div>
+
+        <p
+          className={
+            alreadyHavePlayer
+              ? "animate-pulse text-center block text-xs text-red-600"
+              : "hidden"
+          }
+        >
+          already have playerr
+        </p>
 
         <Timer addToSquad={addToSquad} />
       </div>

@@ -1,12 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-interface PlayerDetails {
-  name: string;
-  id: number;
-}
-
-const Team = ({ squad }: { squad: PlayerDetails[] }) => {
+const Team = ({ squad }: { squad: string[] }) => {
   const [subIn, setSubIn] = useState(""); //used to select player from list to add to position
   const [subbedPlayers, setSubbedPlayers] = useState<string[]>([]);
   const [positions, setPositions] = useState([
@@ -54,6 +49,7 @@ const Team = ({ squad }: { squad: PlayerDetails[] }) => {
 
   return (
     <>
+      <h1 className="team-management">TEAM MANAGEMENT</h1>
       <div className="team-container">
         <ul className="line-up">
           {positions.map((position, i) => (
@@ -70,25 +66,25 @@ const Team = ({ squad }: { squad: PlayerDetails[] }) => {
       <div className="squad-list">
         <h1>SQUAD LIST</h1>
         <ul>
-          {squad.map((player) => (
+          {squad.map((player, i) => (
             <li
-              key={player.id}
+              key={i}
               onClick={() => {
                 setIsClicked(true);
-                setSubIn(player.name);
+                setSubIn(player);
                 setSubbedPlayers((prev) =>
-                  subbedPlayers.includes(player.name) //keeps track of players subbed in
+                  subbedPlayers.includes(player) //keeps track of players subbed in
                     ? prev
-                    : [...prev, player.name]
+                    : [...prev, player]
                 );
               }}
               style={{
-                color: subbedPlayers.includes(player.name) ? "green" : "black",
-                opacity: subbedPlayers.includes(player.name) ? 0 : 1,
+                color: subbedPlayers.includes(player) ? "green" : "black",
+                opacity: subbedPlayers.includes(player) ? 0 : 1,
                 transition: "opacity 0.3s ease",
               }}
             >
-              {player.name}
+              {player}
             </li>
           ))}
         </ul>
