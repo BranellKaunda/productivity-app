@@ -13,8 +13,9 @@ const Points = ({ points }: Points) => {
           <Image
             src="/images/points.png"
             alt="points image"
-            width={30}
-            height={30}
+            fill
+            sizes="100%"
+            unoptimized
             style={{ objectFit: "cover" }}
           />
         </div>

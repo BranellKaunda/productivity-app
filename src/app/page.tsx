@@ -13,7 +13,7 @@ export default function Home() {
   const [isSearched, setIsSearched] = useState(false);
   const [playerPick, setPlayerPick] = useState<string[]>([]); //player selected after searching
   const [isAdded, setIsAdded] = useState(false);
-  const [playerImage, setPlayerImage] = useState("/images/player.png");
+  const [playerImage, setPlayerImage] = useState("/images/soccer1.png");
   const [squad, setSquad] = useState<string[]>([]);
   const [points, setPoints] = useState<number>(0);
   const [alreadyHavePlayer, setAlreadyHavePlayer] = useState(false);
@@ -94,14 +94,12 @@ export default function Home() {
     setPlayerPick((prev) => {
       if (!prev.includes(name)) {
         setAlreadyHavePlayer(false);
-        console.log("new");
         fecthImages(id); // Only fetch if it's a new pick
         return [...prev, name];
       }
       setIsAdded(false);
       setAlreadyHavePlayer(true); //toggles already have player message
       fecthImages(id);
-      console.log("old");
       return prev;
     });
   };
@@ -133,7 +131,7 @@ export default function Home() {
             alt="search icon"
             width={20}
             height={20}
-            priority
+            unoptimized
             style={{ objectFit: "cover" }}
           />
         </div>
@@ -169,7 +167,7 @@ export default function Home() {
             alt="menu logo"
             fill
             sizes="100%"
-            priority
+            unoptimized
             style={{ objectFit: "cover", borderRadius: "4%" }}
           />
 
@@ -183,7 +181,7 @@ export default function Home() {
               height={40}
               width={40}
               sizes="100%"
-              priority
+              unoptimized
               style={{
                 objectFit: "cover",
                 borderRadius: "4%",
@@ -197,11 +195,11 @@ export default function Home() {
         <p
           className={
             alreadyHavePlayer
-              ? "animate-pulse text-center block text-xs text-red-600"
+              ? "animate-pulse text-center block text-xs text-green-600"
               : "hidden"
           }
         >
-          already have playerr
+          already have player
         </p>
 
         <Timer addToSquad={addToSquad} />

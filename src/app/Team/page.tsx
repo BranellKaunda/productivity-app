@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Team = ({ squad }: { squad: string[] }) => {
   const [subIn, setSubIn] = useState(""); //used to select player from list to add to position
@@ -18,10 +18,6 @@ const Team = ({ squad }: { squad: string[] }) => {
     "LF",
   ]);
   const [isClicked, setIsClicked] = useState(false);
-
-  useEffect(() => {
-    console.log(squad);
-  }, [squad]);
 
   const substitution = (playerIn: string, index: number) => {
     setIsClicked(false);
@@ -47,6 +43,10 @@ const Team = ({ squad }: { squad: string[] }) => {
     }
   };
 
+  if (!squad || !Array.isArray(squad)) {
+    return <p>No team data available.</p>;
+  }
+
   return (
     <>
       <h1 className="team-management">TEAM MANAGEMENT</h1>
@@ -66,27 +66,28 @@ const Team = ({ squad }: { squad: string[] }) => {
       <div className="squad-list">
         <h1>SQUAD LIST</h1>
         <ul>
-          {squad.map((player, i) => (
-            <li
-              key={i}
-              onClick={() => {
-                setIsClicked(true);
-                setSubIn(player);
-                setSubbedPlayers((prev) =>
-                  subbedPlayers.includes(player) //keeps track of players subbed in
-                    ? prev
-                    : [...prev, player]
-                );
-              }}
-              style={{
-                color: subbedPlayers.includes(player) ? "green" : "black",
-                opacity: subbedPlayers.includes(player) ? 0 : 1,
-                transition: "opacity 0.3s ease",
-              }}
-            >
-              {player}
-            </li>
-          ))}
+          {squad.length > 0 &&
+            squad.map((player, i) => (
+              <li
+                key={i}
+                onClick={() => {
+                  setIsClicked(true);
+                  setSubIn(player);
+                  setSubbedPlayers((prev) =>
+                    subbedPlayers.includes(player) //keeps track of players subbed in
+                      ? prev
+                      : [...prev, player]
+                  );
+                }}
+                style={{
+                  color: subbedPlayers.includes(player) ? "green" : "black",
+                  opacity: subbedPlayers.includes(player) ? 0 : 1,
+                  transition: "opacity 0.3s ease",
+                }}
+              >
+                {player}
+              </li>
+            ))}
         </ul>
       </div>
     </>

@@ -12,7 +12,7 @@ const Timer = ({ addToSquad }: { addToSquad: () => void }) => {
   };
 
   function startTime() {
-    let oneSecond = 5; //60
+    let oneSecond = 60; //60
     let oneMinute = minutes;
 
     const countDown = setInterval(() => {
@@ -25,7 +25,7 @@ const Timer = ({ addToSquad }: { addToSquad: () => void }) => {
       }
 
       if (oneSecond === 0) {
-        oneSecond = 5; //59
+        oneSecond = 59; //59
         oneMinute--;
         setMinutes(oneMinute);
       } else {
